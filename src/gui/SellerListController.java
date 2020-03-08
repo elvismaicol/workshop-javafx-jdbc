@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import application.Main;
 import db.DbIntegrityException;
+import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -26,7 +27,7 @@ import javafx.stage.Stage;
 import model.entities.Seller;
 import model.services.SellerService;
 
-public class SellerListController implements Initializable {
+public class SellerListController implements Initializable, DataChangeListener{
 	
 	private SellerService service;
 	
@@ -95,6 +96,7 @@ public class SellerListController implements Initializable {
 //			SellerFormController controller = loader.getController();
 //			controller.setSeller(obj);
 //			controller.setSellerService(new SellerService());
+//			controller.subscribeDataChangeListener(this);
 //			controller.updateFormData();
 //			
 //			Stage dialogStage = new Stage();
@@ -170,5 +172,10 @@ public class SellerListController implements Initializable {
 				Alerts.showAlert("Error removing object", null, e.getMessage(), AlertType.ERROR);
 			}
 		}
+	}
+
+	@Override
+	public void onDataChange() {
+		updateTableView();
 	}
 }
